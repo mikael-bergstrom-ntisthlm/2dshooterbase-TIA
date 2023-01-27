@@ -14,9 +14,9 @@ using UnityEngine;
 
  SKOTT:
  x Åka uppåt
- - Ta bort när ovanför skärmen
- - Skapa där skeppet är
- - Inte skjuta varje frame
+ x Ta bort när ovanför skärmen
+ x Skapa där skeppet är
+ x Inte skjuta varje frame
  - Skada fiender + ta bort
 */
 
@@ -26,6 +26,17 @@ public class ShipController : MonoBehaviour
   [SerializeField]
   float speed = 1f;
 
+  [SerializeField]
+  GameObject bulletPrefab;
+
+  [SerializeField]
+  Transform gunTransform;
+
+  float shootTimer = 0;
+
+  [SerializeField]
+  float timeBetweenShots = 0.5f;
+
   void Start()
   {
 
@@ -33,15 +44,21 @@ public class ShipController : MonoBehaviour
 
   void Update()
   {
-    // 30fps = 30*0.02 = 0.6
-    // 60fps = 60*0.02 = 1.2
-    // 120fps = 120*0.02 = 2.4
-
     float xMove = Input.GetAxisRaw("Horizontal");
     float yMove = Input.GetAxisRaw("Vertical");
 
     Vector2 movement = new Vector2(xMove, yMove) * speed * Time.deltaTime;
 
     transform.Translate(movement);
+
+    shootTimer += Time.deltaTime;
+
+    if (Input.GetAxisRaw("Fire1") > 0 && shootTimer > timeBetweenShots)
+    {
+      Instantiate(bulletPrefab, gunTransform.position, Quaternion.identity);
+      shootTimer = 0;
+    }
+
+
   }
 }

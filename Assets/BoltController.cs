@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BoltController : MonoBehaviour
 {
+  [SerializeField]
   float speed = 3f;
 
   void Start()
@@ -17,5 +18,9 @@ public class BoltController : MonoBehaviour
 
     transform.Translate(movement);
 
+    if (transform.position.y > 7)
+    {
+      Destroy(this.gameObject);
+    }
   }
 }
