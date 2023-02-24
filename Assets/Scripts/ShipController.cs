@@ -1,27 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /*
  * Skjutande
  * Hindra att man åker utanför
  * Fiender
+ - Livräkning & gameover
  - (Diagonal förflyttning)
  - Musik
- - Livräkning & gameover
  - Highscore 
  - Powerups (speed, vapen)
 
- SKOTT:
- x Åka uppåt
- x Ta bort när ovanför skärmen
- x Skapa där skeppet är
- x Inte skjuta varje frame
- - Skada fiender + ta bort
+
 */
 
 public class ShipController : MonoBehaviour
 {
+
+  [SerializeField]
+  int health = 5;
+
+  [SerializeField]
+  Slider healthMeter;
 
   [SerializeField]
   float speed = 1f;
@@ -39,7 +41,8 @@ public class ShipController : MonoBehaviour
 
   void Start()
   {
-
+    healthMeter.maxValue = health;
+    healthMeter.value = health;
   }
 
   void Update()
@@ -58,7 +61,14 @@ public class ShipController : MonoBehaviour
       Instantiate(bulletPrefab, gunTransform.position, Quaternion.identity);
       shootTimer = 0;
     }
+  }
 
-
+  void OnTriggerEnter2D(Collider2D other)
+  {
+    if (other.gameObject.tag == "enemy")
+    {
+      health--;
+      healthMeter.value = health;
+    }
   }
 }
