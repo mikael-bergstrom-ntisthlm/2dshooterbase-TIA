@@ -1,6 +1,6 @@
 # 2D Shooter Base
 
-Grunden för en 2D-shooter; att användas i undervisningen i Programmering 1.
+Grunden för en 2D-shooter; att användas i undervisningen i Programmering 1, 2 eller Tillämpad Programmering.
 
 Projektet är skapat i Unity 2017.4.32f1, och bör funka i alla senare versioner.
 
